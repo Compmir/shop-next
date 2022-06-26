@@ -1,0 +1,32 @@
+{
+  "name": "n",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@prisma/client": "3.15.2",
+    "axios": "^0.27.2",
+    "next": "12.1.6",
+    "next-auth": "^4.5.0",
+    "nextjs-progressbar": "^0.0.14",
+    "prisma": "^3.15.2",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-hook-form": "^7.31.2",
+    "react-modal": "^3.15.1",
+    "react-range": "^1.8.12",
+    "sass": "^1.52.1",
+    "serverless-mysql": "^1.5.4",
+    "sharp": "^0.30.5",
+    "swiper": "^8.1.5"
+  },
+  "devDependencies": {
+    "eslint": "8.16.0",
+    "eslint-config-next": "12.1.6"
+  }
+}

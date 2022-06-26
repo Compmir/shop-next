@@ -1,0 +1,366 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model collection {
+  id                      Int                       @id @default(autoincrement())
+  url                     String?                   @unique(map: "ux_collection_url") @db.VarChar(255)
+  url2                    String                    @db.VarChar(300)
+  title                   String?                   @db.VarChar(255)
+  link_title              String?                   @db.VarChar(255)
+  text                    String?                   @db.Text
+  image                   String?                   @db.Text
+  seo_title               String?                   @db.Text
+  seo_description         String?                   @db.Text
+  short_text              String?                   @db.Text
+  collection_category_ref collection_category_ref[]
+  collection_product_ref collection_product_ref[]
+
+}
+
+model news {
+  id    Int      @id @default(autoincrement())
+  title String?  @db.VarChar(255)
+  text  String?  @db.Text
+  image String?  @db.Text
+  date  DateTime @default(now())
+
+}
+
+model stavki {
+  id             Int      @id @default(autoincrement())
+  name_home      String?  @db.VarChar(255)
+  name_away      String?  @db.VarChar(255)
+  odd_name       String?  @db.VarChar(255)
+  odd_value      Decimal? @db.Decimal(10, 2)
+  pinnacle_odd1  Decimal? @db.Decimal(10, 2)
+  pinnacle_odd2  Decimal? @db.Decimal(10, 2)
+  betonline_odd1 Decimal? @db.Decimal(10, 2)
+  betonline_odd2 Decimal? @db.Decimal(10, 2)
+  date           DateTime @default(now())
+
+}
+
+model collection_category_ref {
+  id            Int        @id @default(autoincrement())
+  collection_id Int
+  category_id   Int?
+  collection    collection @relation(fields: [collection_id], references: [id])
+
+  @@unique([collection_id, category_id], map: "ux_collection_collection_id_category_id")
+}
+
+model collection_product_ref {
+  id            Int  @id @default(autoincrement())
+  collection_id Int
+  product_id    Int
+  collection    collection @relation(fields: [collection_id], references: [id])
+  product    shop_product @relation(fields: [product_id], references: [id])
+
+  @@unique([collection_id, product_id], map: "ux_collection_collection_id_product_id")
+}
+
+model migration {
+  version    String @id @db.VarChar(180)
+  apply_time Int?
+}
+
+model page {
+  id               Int       @id @default(autoincrement())
+  category_id      Int       @default(0)
+  slug             String?   @db.VarChar(255)
+  image            String?   @db.VarChar(255)
+  title            String?   @db.VarChar(255)
+  text             String?   @db.Text
+  albums           String?   @db.Text
+  published_at     DateTime? @db.Date
+  is_main          Int       @default(0) @db.TinyInt
+  meta_title       String?   @db.VarChar(255)
+  meta_description String?   @db.VarChar(255)
+  source           String?   @db.VarChar(255)
+  page_template    String?   @db.VarChar(255)
+}
+
+model page_category {
+  id                Int     @id @default(autoincrement())
+  slug              String? @db.VarChar(255)
+  title             String? @db.VarChar(255)
+  text              String? @db.Text
+  category_template String? @db.VarChar(255)
+  pages_template    String? @db.VarChar(255)
+  meta_title        String? @db.VarChar(255)
+  meta_description  String? @db.VarChar(255)
+  order             Int     @default(0)
+  parent_id         Int     @default(0) @db.UnsignedInt
+  menu_title        String? @db.VarChar(255)
+
+  @@unique([parent_id, slug], map: "ux_page_category_parent_id_slug")
+}
+
+model page_tag {
+  id               Int     @id @default(autoincrement())
+  slug             String? @unique(map: "slug") @db.VarChar(255)
+  name             String? @db.VarChar(255)
+  meta_title       String? @db.VarChar(255)
+  meta_description String? @db.VarChar(255)
+}
+
+model page_tag_ref {
+  id      Int @id @default(autoincrement())
+  page_id Int
+  tag_id  Int
+}
+
+model shop_brand {
+  id              Int     @id @default(autoincrement())
+  image           String? @db.VarChar(255)
+  is_favorite     Boolean @default(false)
+  order           Int     @default(0) @db.SmallInt
+  name            String  @db.VarChar(255)
+  description     String? @db.Text
+  seo_title       String? @db.VarChar(255)
+  seo_description String? @db.Text
+  slug            String? @db.VarChar(255)
+  link            String? @db.VarChar(255)
+}
+
+model shop_category {
+  id                Int     @id @default(autoincrement())
+  parent_id         Int     @default(0)
+  image             String? @db.VarChar(255)
+  order             Int     @default(0) @db.SmallInt
+  name              String  @db.VarChar(255)
+  description       String? @db.Text
+  seo_title         String? @db.VarChar(255)
+  seo_description   String? @db.Text
+  slug              String? @db.VarChar(255)
+  short_description String? @db.Text
+  meta_data         String? @db.Text
+}
+
+model shop_category_options {
+  id          Int @id @default(autoincrement())
+  option_id   Int
+  category_id Int
+
+  @@unique([option_id, category_id], map: "ux-shop_category_options-option_id-category_id")
+}
+
+model shop_category_properties {
+  id          Int @id @default(autoincrement())
+  category_id Int
+  property_id Int
+
+  @@unique([property_id, category_id], map: "ux-shop_category_properties-property_id-category_id")
+}
+
+model shop_delivery {
+  id          Int     @id @default(autoincrement())
+  order       Int     @default(0) @db.SmallInt
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+}
+
+model shop_group {
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(255)
+  order Int    @default(0)
+  code  String @db.VarChar(255)
+}
+
+model shop_links {
+  id          Int    @id @default(autoincrement())
+  category_id Int    @default(0)
+  params      String @default("") @db.VarChar(300)
+  name        String @db.VarChar(200)
+  image       String @default("") @db.VarChar(400)
+  link        String @db.VarChar(400)
+  priority    Int?
+}
+
+model shop_option {
+  id          Int     @id @default(autoincrement())
+  order       Int     @default(0) @db.SmallInt
+  name        String  @db.VarChar(255)
+  is_filtered Boolean @default(false)
+}
+
+model shop_order {
+  id              Int       @id @default(autoincrement())
+  created_at      DateTime? @db.DateTime(0)
+  addressee_name  String?   @db.VarChar(255)
+  addressee_email String?   @db.VarChar(255)
+  addressee_phone String?   @db.VarChar(255)
+  address         String?   @db.Text
+  pay_id          Int
+  delivery_id     String    @db.VarChar(255)
+  status          Boolean   @default(false)
+
+  @@index([created_at], map: "idx-shop_order-created_at")
+  @@index([status], map: "idx-shop_order-status")
+}
+
+model shop_order_products {
+  id         Int      @id @default(autoincrement())
+  order_id   Int
+  product_id Int
+  name       String   @db.VarChar(255)
+  price      Decimal? @db.Decimal(10, 2)
+  count      Int?
+  options    String?  @db.Text
+
+  @@index([order_id], map: "idx-shop_order_products-order_id")
+  @@index([product_id], map: "idx-shop_order_products-product_id")
+}
+
+model shop_pay {
+  id          Int     @id @default(autoincrement())
+  order       Int     @default(0) @db.SmallInt
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+}
+
+model shop_product {
+  id                      Int                       @id @default(autoincrement())
+  brand_id                Int?
+  article                 String?                   @db.VarChar(255)
+  price                   Decimal?                  @db.Decimal(10, 2)
+  discount                Int?                      @db.TinyInt
+  name                    String                    @db.VarChar(255)
+  description             String?                   @db.Text
+  seo_title               String?                   @db.VarChar(255)
+  seo_description         String?                   @db.Text
+  slug                    String?                   @db.VarChar(255)
+  order                   Int                       @default(500)
+  is_stock                Boolean                   @default(true)
+  meta_data               String?                   @db.Text
+  shop_product_images     shop_product_images[]
+  shop_product_properties shop_product_properties[]
+  shop_product_categories shop_product_categories[]
+  collection_product_ref collection_product_ref[]
+
+  @@index([brand_id], map: "idx-shop_product-brand_id")
+  @@index([is_stock], map: "idx_shop_product_is_stock")
+}
+
+model shop_product_categories {
+  id          Int          @id @default(autoincrement())
+  product_id  Int
+  category_id Int
+  product     shop_product @relation(fields: [product_id], references: [id])
+
+  @@unique([product_id, category_id], map: "ux-shop_product_categories-product_id-category_id")
+}
+
+model shop_product_images {
+  id           Int          @id @default(autoincrement())
+  product_id   Int
+  image        String?      @db.Text
+  order        Int          @default(0)
+  shop_product shop_product @relation(fields: [product_id], references: [id])
+
+  @@index([product_id], map: "idx-shop_product_images-product_id")
+}
+
+model shop_product_options {
+  id         Int      @id @default(autoincrement())
+  option_id  Int
+  product_id Int
+  add_price  Decimal? @db.Decimal(10, 2)
+  value      String   @db.VarChar(255)
+
+  @@index([option_id, product_id], map: "idx-shop_product_options-option_id-product_id")
+}
+
+model shop_product_properties {
+  id           Int           @id @default(autoincrement())
+  product_id   Int
+  property_id  Int
+  value        String?       @db.Text
+  shop_product shop_product  @relation(fields: [product_id], references: [id])
+  property     shop_property @relation(fields: [property_id], references: [id])
+
+  @@unique([property_id, product_id], map: "ux-shop_product_properties-property_id-product_id")
+  @@index([product_id], map: "shop_product_properties_product_id_fkey")
+}
+
+model shop_product_relations {
+  id                Int @id @default(autoincrement())
+  relation_id       Int
+  product_id        Int
+  linked_product_id Int
+
+  @@unique([relation_id, product_id, linked_product_id], map: "ux-shop_product_relations-rel_id-prod_id-linked_prod_id")
+}
+
+model shop_product_stickers {
+  id         Int  @id @default(autoincrement())
+  product_id Int?
+  sticker_id Int?
+}
+
+model shop_property {
+  id                      Int                       @id @default(autoincrement())
+  type                    String                    @db.VarChar(10)
+  order                   Int                       @default(0) @db.SmallInt
+  name                    String                    @db.VarChar(255)
+  is_filtered             Boolean                   @default(false)
+  filter_type             String                    @default("checkboxes") @db.VarChar(10)
+  unit                    String                    @default("") @db.VarChar(255)
+  shop_product_properties shop_product_properties[]
+}
+
+model shop_property_groups {
+  id          Int @id @default(autoincrement())
+  group_id    Int
+  property_id Int
+}
+
+model shop_relation {
+  id   Int    @id @default(autoincrement())
+  key  String @unique(map: "ux-shop_relation-key") @db.VarChar(255)
+  name String @db.VarChar(255)
+}
+
+model shop_sticker {
+  id    Int     @id @default(autoincrement())
+  label String? @db.VarChar(255)
+  image String? @db.VarChar(255)
+  order Int     @default(0)
+}
+
+model site_data {
+  id          Int     @id @default(autoincrement())
+  category_id Int
+  key         String  @unique(map: "ux-site_data-key") @db.VarChar(255)
+  value       String? @db.Text
+  type        String  @db.VarChar(10)
+  name        String  @db.VarChar(255)
+
+  @@index([category_id], map: "idx-site_data-category_id")
+}
+
+model site_data_category {
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(255)
+  order Int    @default(0) @db.SmallInt
+}
+
+model user {
+  id                   Int     @id @default(autoincrement())
+  username             String  @unique(map: "username") @db.VarChar(255)
+  auth_key             String  @db.VarChar(32)
+  password_hash        String  @db.VarChar(255)
+  password_reset_token String? @unique(map: "password_reset_token") @db.VarChar(255)
+  email                String  @unique(map: "email") @db.VarChar(255)
+  status               Int     @default(10) @db.SmallInt
+  created_at           Int
+  updated_at           Int
+  verification_token   String? @db.VarChar(255)
+  is_admin             Int     @default(0) @db.UnsignedTinyInt
+}
