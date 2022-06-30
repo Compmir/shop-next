@@ -1,0 +1,34 @@
+﻿import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+
+export default async function handler(req, res) {
+	let data=JSON.parse(req.body.data)
+	let dataId=Number(data.data.id)
+	delete data.data.id
+	
+	if (req.headers.token=="f7059062-47ca-4e8f-b0d5-34fdd605eddd")  {
+	if(data.action=="upsert"){
+		let pr=await prisma.shop_brand.upsert({
+			where: {
+				id: dataId
+			},
+			update: data.data,
+			create: data.data
+		})
+	    console.log("upsert shop_brand",pr)
+
+	}
+	if(data.action=="delete"){
+		let pr=await prisma.shop_brand.deleteMany({
+			where: {
+				id: dataId
+			}
+		})
+			    console.log("delete shop_brand",pr)
+
+	}
+	
+	}
+	
+  res.status(200).json({ data: data.data })
+}

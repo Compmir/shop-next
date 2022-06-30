@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     const pinnacle_odd2=req.query.pinnacle_odd2
     const betonline_odd1=req.query.betonline_odd1
     const betonline_odd2=req.query.betonline_odd2
-	console.log(req.query)
+	//console.log(req.query)
 	/*   */
     if (typeof name_home !== 'undefined' && typeof name_away !== 'undefined' && typeof odd_name !== 'undefined' && typeof odd_value !== 'undefined' && typeof pinnacle_odd1 !== 'undefined' && typeof pinnacle_odd2 !== 'undefined' && typeof betonline_odd1 !== 'undefined' && typeof betonline_odd2 !== 'undefined' ) {
 		const stavka=await prisma.stavki.create({

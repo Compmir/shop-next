@@ -10,7 +10,7 @@ datasource db {
 model collection {
   id                      Int                       @id @default(autoincrement())
   url                     String?                   @unique(map: "ux_collection_url") @db.VarChar(255)
-  url2                    String                    @db.VarChar(300)
+  url2                    String?                   @db.VarChar(300)
   title                   String?                   @db.VarChar(255)
   link_title              String?                   @db.VarChar(255)
   text                    String?                   @db.Text
@@ -52,7 +52,7 @@ model collection_category_ref {
   category_id   Int?
   collection    collection @relation(fields: [collection_id], references: [id])
 
-  @@unique([collection_id, category_id], map: "ux_collection_collection_id_category_id")
+  //@@unique([collection_id, category_id], map: "ux_collection_collection_id_category_id")
 }
 
 model collection_product_ref {
@@ -62,7 +62,7 @@ model collection_product_ref {
   collection    collection @relation(fields: [collection_id], references: [id])
   product    shop_product @relation(fields: [product_id], references: [id])
 
-  @@unique([collection_id, product_id], map: "ux_collection_collection_id_product_id")
+  //@@unique([collection_id, product_id], map: "ux_collection_collection_id_product_id")
 }
 
 model migration {
@@ -244,8 +244,8 @@ model shop_product {
   shop_product_categories shop_product_categories[]
   collection_product_ref collection_product_ref[]
 
-  @@index([brand_id], map: "idx-shop_product-brand_id")
-  @@index([is_stock], map: "idx_shop_product_is_stock")
+  //@@index([brand_id], map: "idx-shop_product-brand_id")
+  //@@index([is_stock], map: "idx_shop_product_is_stock")
 }
 
 model shop_product_categories {
@@ -254,7 +254,7 @@ model shop_product_categories {
   category_id Int
   product     shop_product @relation(fields: [product_id], references: [id])
 
-  @@unique([product_id, category_id], map: "ux-shop_product_categories-product_id-category_id")
+  //@@unique([product_id, category_id], map: "ux-shop_product_categories-product_id-category_id")
 }
 
 model shop_product_images {
@@ -264,7 +264,7 @@ model shop_product_images {
   order        Int          @default(0)
   shop_product shop_product @relation(fields: [product_id], references: [id])
 
-  @@index([product_id], map: "idx-shop_product_images-product_id")
+  //@@index([product_id], map: "idx-shop_product_images-product_id")
 }
 
 model shop_product_options {
@@ -285,8 +285,8 @@ model shop_product_properties {
   shop_product shop_product  @relation(fields: [product_id], references: [id])
   property     shop_property @relation(fields: [property_id], references: [id])
 
-  @@unique([property_id, product_id], map: "ux-shop_product_properties-property_id-product_id")
-  @@index([product_id], map: "shop_product_properties_product_id_fkey")
+  //@@unique([property_id, product_id], map: "ux-shop_product_properties-property_id-product_id")
+  //@@index([product_id], map: "shop_product_properties_product_id_fkey")
 }
 
 model shop_product_relations {
