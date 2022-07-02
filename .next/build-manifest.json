@@ -29,16 +29,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/catalog.js"
-    ],
-    "/catalog/[slug]": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/catalog/[slug].js"
-    ],
-    "/catalog/search/[string]": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/catalog/search/[string].js"
     ]
   },
   "ampFirstPages": []

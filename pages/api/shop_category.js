@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 		let pr=await prisma.shop_category.upsert({
 			where: {
 				slug: data.data.slug
-			}
+			},
 			data: data.data
 		})
 	    console.log(pr)

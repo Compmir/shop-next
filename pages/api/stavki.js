@@ -4,7 +4,13 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 export default async function handler(req, res) {
-	const stavki = await prisma.stavki.findMany()
+	const stavki = await prisma.stavki.findMany({
+		
+		orderBy: {
+			id: "desc"
+		},
+		take: 5
+	})
 	const name_home=req.query.name_home
 	const name_away=req.query.name_away
 	const odd_name=req.query.odd_name

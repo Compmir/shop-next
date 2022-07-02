@@ -39,9 +39,8 @@ export default async function handler(req, res) {
 				data: data.shop_product_properties
 				
 			})
-			    console.log("create shop_product_properties   ",
-				
-			pr) pr=await prisma.shop_product_images.deleteMany({
+			    console.log("create shop_product_properties   ",			pr) 
+			pr=await prisma.shop_product_images.deleteMany({
 				where: {
 					product_id: dataId
 				},
