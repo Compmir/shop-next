@@ -11,6 +11,7 @@
   "dependencies": {
     "@prisma/client": "3.15.2",
     "axios": "^0.27.2",
+    "gsap": "^3.10.4",
     "next": "12.1.6",
     "next-auth": "^4.5.0",
     "nextjs-progressbar": "^0.0.14",

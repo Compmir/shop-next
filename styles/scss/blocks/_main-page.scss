@@ -12,7 +12,7 @@
   background: #0f0f0f;
   position: relative;
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 1px;
@@ -114,6 +114,29 @@
 }
 
 .intro {
+  &__btn-red-hover {
+    transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+    border: 1px solid transparent;
+    &:hover {
+      border: 1px solid #df0000;
+      color: #df0000 !important;
+      transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+      background-color: #f0f0f0;
+      & a {
+        color: #df0000 !important;
+        transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+        background-color: #f0f0f0;
+      }
+    }
+  }
+  &__btn-white-hover {
+    transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+    &:hover {
+      color: #f0f0f0;
+      transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+      background-color: #df0000 !important;
+    }
+  }
   width: 100%;
   height: 1015px;
   background: url(../../../public/s1-bg.webp);
@@ -136,6 +159,9 @@
     display: flex;
     align-items: center;
     gap: 40px;
+    button {
+      visibility: hidden;
+    }
   }
   &__link {
     width: 280px;
@@ -167,6 +193,10 @@
   &__left {
     z-index: 3;
     position: relative;
+    h1 {
+      visibility: hidden;
+      // transform: translateX(-100%);
+    }
   }
   &__statistic {
     margin-top: 200px;
@@ -199,6 +229,8 @@
     }
     &-item:nth-child(3) {
       .intro__statistic-num {
+        display: flex;
+        align-items: center;
         font-size: 72px;
         font-weight: 800;
         color: #df0000;
@@ -346,14 +378,17 @@
   &__btn1 {
     top: 280px;
     left: 100px;
+    left: 50%;
   }
   &__btn2 {
     top: 280px;
     left: 100px;
+    left: 50%;
   }
   &__btn3 {
     top: 280px;
     left: 100px;
+    left: 50%;
   }
 }
 
@@ -443,7 +478,7 @@
   &__form-btn {
     background: #df0000;
     border-radius: 6px;
-    border: none;
+    border: 1px solid transparent;
     font-size: 14px;
     width: 525px;
     height: 60px;
@@ -477,7 +512,7 @@
     }
     &::after {
       transition: all 0.3s ease 0s;
-      content: "";
+      content: '';
       width: 20px;
       height: 20px;
       position: absolute;
@@ -489,7 +524,7 @@
       transform: scale(0);
     }
     &::before {
-      content: "";
+      content: '';
       flex: 0 0 20px;
       height: 20px;
       background: #fff;
@@ -521,7 +556,7 @@
     font-size: 46px;
     text-transform: uppercase;
     color: #fff;
-    span {
+    div {
       color: #df0000;
     }
   }
@@ -606,7 +641,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: none;
+    border: 1px solid transparent;
     cursor: pointer;
   }
 }
@@ -750,7 +785,7 @@
         position: absolute;
         left: 0;
         top: -18px;
-        content: "";
+        content: '';
         width: 100%;
         height: 1px;
         background: rgba(#df0000, 0.5);
@@ -838,7 +873,7 @@
   &__form-btn {
     background: #df0000;
     border-radius: 6px;
-    border: none;
+    border: 1px solid transparent;
     font-size: 14px;
     width: 525px;
     height: 60px;
@@ -867,7 +902,7 @@
     }
     &::after {
       transition: all 0.3s ease 0s;
-      content: "";
+      content: '';
       width: 20px;
       height: 20px;
       position: absolute;
@@ -879,7 +914,7 @@
       transform: scale(0);
     }
     &::before {
-      content: "";
+      content: '';
       flex: 0 0 20px;
       height: 20px;
       background: #fff;
@@ -964,7 +999,7 @@
       display: none;
     }
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       width: 100%;
       height: 1px;
