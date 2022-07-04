@@ -2,4 +2,8 @@ node_modules
 public/upload
 # Keep environment variables out of version control
 .env
+<<<<<<< HEAD
 .next
+=======
+.next
+>>>>>>> 7a4283f428c4351afbcec83e6ca4d596a0d819f6

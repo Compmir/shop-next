@@ -1,4 +1,3 @@
-import axios from "axios"
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -224,29 +223,17 @@ export async function getServerSideProps(context) {
             :
             encodeURI(`https://trade-group.su/apicatalog?categories=${category}&${productsFilters}page=${page}`)
             
-       const productsResponse = (await axios.get(productsURI)).data
-		console.log(productsURI )
+       // const productsResponse = (await axios.get(productsURI)).data
 		var categoryArr=category.split(",")
 		categoryArr = categoryArr.map(function (x) { 
 			return parseInt(x, 10); 
 		});
-		
+				console.log(categoryArr )
+
 		let products = await prisma.shop_product_categories.findMany({
 				where:{ category_id: {
 					  in: categoryArr
-					},
-				/* 	product: {
-						shop_product_properties: {
-							property: {
-								is_filtered: 1
-							}
-						}
-					} orderBy:{
-							is_stock: 'desc',
-							order: 'asc'
-						},*/
-				    //{is_filtered: 1}
-				  
+					},			  
 				},
 				include: {
 					product: {
@@ -282,6 +269,14 @@ export async function getServerSideProps(context) {
 			var add=true
 			for (var j in props){
 				var pid=props[j].property_id
+				if (!props[j].property) {
+					await prisma.shop_product_properties.deleteMany({
+						where:{ property_id: pid }
+					  
+					})		  
+			
+				}
+				else {
 				if (props[j].property.is_filtered==1) {
 					//-all props
 					newProps.push(props[j])
@@ -309,6 +304,7 @@ export async function getServerSideProps(context) {
 						}
 					}//-filters
 				}//if is filtered
+			    }
 			}//for props
 			
 			if(add){
