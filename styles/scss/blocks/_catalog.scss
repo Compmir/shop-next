@@ -91,7 +91,7 @@
       align-items: center;
       position: relative;
       &::before {
-        content: "";
+        content: '';
         align-self: flex-start;
         flex: 0 0 15px;
         height: 15px;
@@ -101,7 +101,7 @@
         cursor: pointer;
       }
       &::after {
-        content: "";
+        content: '';
         transform: scale(0);
         transition: all 0.3s ease 0s;
         position: absolute;
@@ -286,6 +286,7 @@
     &-img {
       width: 384px;
       height: 256px;
+      background-color: #fff;
       img {
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;

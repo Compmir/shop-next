@@ -1,57 +1,60 @@
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { PrismaClient } from '@prisma/client'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { PrismaClient } from '@prisma/client';
 
-const NewsCatalog = ({news}) => {
-    return (
-        <div>
-        <div className="news-catalog">
-            <div className="container">
-                <div className="breadcrumbs">
-                    <div className="breadcrumbs__block-white">
-                        <Link href="/"><a className="breadcrumbs__item breadcrumbs__item-white">Главная</a></Link>
-                    </div>
-                    <div className="breadcrumbs__block-white">
-                        <span className="breadcrumbs__item">Новости</span>
-                    </div>
+const NewsCatalog = ({ news }) => {
+  return (
+    <div>
+      <div className="news-catalog">
+        <div className="container">
+          <div className="breadcrumbs">
+            <div className="breadcrumbs__block-white">
+              <Link href="/">
+                <a className="breadcrumbs__item breadcrumbs__item-white">Главная</a>
+              </Link>
+            </div>
+            <div className="breadcrumbs__block-white">
+              <span className="breadcrumbs__item">Новости</span>
+            </div>
+          </div>
+          <div className="news-catalog__title">новости</div>
+          <nav className="news-catalog__nav">
+            <ul>
+              <li>
+                <div className="news-catalog__nav-btn" data-news-filter="all">
+                  <span>В</span>се
                 </div>
-                <div className="news-catalog__title">новости</div>
-                <nav className="news-catalog__nav">
-                    <ul>
-                        <li>
-                            <div className="news-catalog__nav-btn" data-news-filter="all"><span>В</span>се</div>
-                        </li>
-                        <li>
-                            <div className="news-catalog__nav-btn is-active" data-news-filter="new"><span>Н</span>овые</div>
-                        </li>
-                        {/* <li>
+              </li>
+              <li>
+                <div className="news-catalog__nav-btn is-active" data-news-filter="new">
+                  <span>Н</span>овые
+                </div>
+              </li>
+              {/* <li>
                             <div className="news-catalog__nav-btn" data-news-filter="popular"><span>П</span>опулярные</div>
                         </li> */}
-                    </ul>
-                </nav>
-                    <div className="news-catalog__wrapper">
-                        {
-                            news?.map((element, index) => {
-								let date =  element.date.split("T")[0]
-								
-                                return (
-                                    <div key={index} className="news-catalog__item" data-category="new">
-                                    <div className="news-catalog__item-img">
-                                        <img src={element.image} alt="" />
-                                    </div>
-                                    <p className="news-catalog__item-date">{date}</p>
-                                    <p className="news-catalog__item-title">{element.title}</p>
-                                    <p className="news-catalog__item-text">
+            </ul>
+          </nav>
+          <div className="news-catalog__wrapper">
+            {news?.map((element, index) => {
+              let date = element.date.split('T')[0];
 
-                                    </p>
-                                    <Link href={"/news-catalog/"+element.id}><a className="news-catalog__item-link">Читать полностью</a></Link>
-                                </div>
-                                )
-                            })
-                        }
-
+              return (
+                <div key={index} className="news-catalog__item" data-category="new">
+                  <div className="news-catalog__item-img">
+                    <img src={element?.image ? 'https://trade-group.su/' + element?.image : '/no-image.png'} alt="" />
+                  </div>
+                  <p className="news-catalog__item-date">{date}</p>
+                  <p className="news-catalog__item-title">{element.title}</p>
+                  <p className="news-catalog__item-text"></p>
+                  <Link href={'/news-catalog/' + element.id}>
+                    <a className="news-catalog__item-link">Читать полностью</a>
+                  </Link>
                 </div>
-                {/* <div className="pagination">
+              );
+            })}
+          </div>
+          {/* <div className="pagination">
                     <div className="pagination__wrapper">
                         <button className="pagination__prev">
                             <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,22 +75,20 @@ const NewsCatalog = ({news}) => {
                         </button>
                     </div>
                 </div> */}
-            </div>
         </div>
-        </div>
-        
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default NewsCatalog
+export default NewsCatalog;
 
 export const getServerSideProps = async (context) => {
+  //const newsResponse = (await axios.get("https://trade-group.su/apinews")).data
 
-    //const newsResponse = (await axios.get("https://trade-group.su/apinews")).data	
-	
-	const prisma = new PrismaClient()	 
+  const prisma = new PrismaClient();
 
-/* 	const news  = await prisma.news.create({
+  /* 	const news  = await prisma.news.create({
 		data:{
 			title: "тестовая новость",
 			text: "<b>тестовая новость текст </b>",
@@ -95,19 +96,14 @@ export const getServerSideProps = async (context) => {
 			
 		}
 			
-	}) */	
-	
-    let data = await prisma.news.findMany({
-			
-	}) 
-	data=JSON.parse(JSON.stringify(data)) // <== here is a solution
+	}) */
 
-	
-	
-	
-    return {
-        props: {
-            news: data ? data : []
-        }
-    }
-}
+  let data = await prisma.news.findMany({});
+  data = JSON.parse(JSON.stringify(data)); // <== here is a solution
+
+  return {
+    props: {
+      news: data ? data : [],
+    },
+  };
+};

@@ -30,7 +30,7 @@ export default function NewsCatalogItem({ newsItem }) {
             <div className="product-card__img-box">
               <div className="product-card__slider">
                 <div className="product-card__slider-item swiper-slide">
-                  <img width="400px" height="355px" src={newsItem.image} alt="" />
+                  <img width="400px" height="355px" src={newsItem?.image ? 'https://trade-group.su/' + newsItem?.image : '/no-image.png'} alt="" />
                 </div>
               </div>
             </div>

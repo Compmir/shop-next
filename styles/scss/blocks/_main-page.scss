@@ -20,13 +20,57 @@
     top: 133px;
     left: 0;
   }
+  &__search {
+    display: flex;
+    align-items: center;
+    position: relative;
+    max-width: 350px;
+  }
+  &__search-btn {
+    cursor: pointer;
+    background-color: transparent;
+    outline: 0;
+    border: none;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-55%);
+    right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    &::after {
+      content: '';
+      display: block;
+      mask-image: url(../../pixeden-stroke-7-icon-master/pe-icon-7-stroke/svg/search.svg);
+      width: 26px;
+      height: 26px;
+      mask-size: cover;
+      background-color: #fff;
+    }
+  }
+  &__search-input {
+    padding: 5px 20px 6px 20px !important;
+    margin-top: 0 !important;
+    color: #fff !important;
+    height: 40px !important;
+    border-radius: 50px !important;
+    background: #0f0f0f !important;
+    font-family: 'Inter' !important;
+    &::placeholder {
+      font-family: 'Inter' !important;
+      color: #fff !important;
+    }
+  }
   &__mobile-logo {
     display: none;
   }
   &__wrapper {
     padding-top: 29px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
   }
   &__logo {
@@ -81,6 +125,7 @@
     }
   }
   &__btn {
+    white-space: nowrap;
     font-size: 13px;
     letter-spacing: 0.3px;
     line-height: 18px;

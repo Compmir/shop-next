@@ -15,11 +15,6 @@
     "static/development/_middlewareManifest.js"
   ],
   "pages": {
-    "/": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/index.js"
-    ],
     "/_app": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
@@ -30,18 +25,20 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/catalog": [
+    "/catalog/[slug]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/catalog.js"
-<<<<<<< HEAD
+      "static/chunks/pages/catalog/[slug].js"
     ],
     "/catalog/categories/[id]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/catalog/categories/[id].js"
-=======
->>>>>>> 7a4283f428c4351afbcec83e6ca4d596a0d819f6
+    ],
+    "/catalog/search/[string]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/catalog/search/[string].js"
     ]
   },
   "ampFirstPages": []

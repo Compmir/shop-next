@@ -2,10 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-<<<<<<< HEAD
   "/catalog/categories/[id]": "pages/catalog/categories/[id].js",
-  "/catalog": "pages/catalog.js"
-=======
-  "/api/stavki": "pages/api/stavki.js"
->>>>>>> 7a4283f428c4351afbcec83e6ca4d596a0d819f6
+  "/catalog/search/[string]": "pages/catalog/search/[string].js",
+  "/catalog/[slug]": "pages/catalog/[slug].js"
 }

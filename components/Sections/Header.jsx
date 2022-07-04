@@ -1,11 +1,25 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { OrderCallModal } from '../Modals/OrderCallModal';
 import Script from 'next/script';
+import { useRouter } from 'next/router';
 
 export const Header = () => {
   const [isModalShow, setModalShowStatus] = useState(false);
+  const [search, setSearch] = useState('');
+  const router = useRouter();
 
+  useEffect(() => {
+    const { string } = router.query;
+    console.log(router.query);
+    if (string) {
+      setSearch(string);
+    }
+  }, [router.query]);
+
+  const onSearch = () => {
+    router.push(`/catalog/search/${search}`);
+  };
   return (
     <header className="header">
       <div className="container">
@@ -28,22 +42,29 @@ export const Header = () => {
               <img src="/logo.svg" alt="logo" />
             </a>
           </Link>
-          <div className="header__location">
-            <div className="header__location-icon">
-              <img src="/location-icon.svg" alt="location" />
-            </div>
-            <div className="header__location-info">
-              <div className="header__location-city">Москва</div>
-              <div className="header__location-address">Лихоборская набережная дом 3</div>
+          <div>
+            <div className="header__location">
+              <div className="header__location-icon">
+                <img src="/location-icon.svg" alt="location" />
+              </div>
+              <div className="header__location-info">
+                <div className="header__location-city">Москва</div>
+                <div className="header__location-address">Лихоборская набережная дом 3</div>
+              </div>
+            </div>{' '}
+            <div className="header__telephone" style={{ marginTop: '16px' }}>
+              <div className="header__telephone-icon">
+                <img src="/call-icon.svg" alt="call" />
+              </div>
+              <a href="tel:+74951667733" className="header__telephone-number">
+                +7 (495) 166-77-33
+              </a>
             </div>
           </div>
-          <div className="header__telephone">
-            <div className="header__telephone-icon">
-              <img src="/call-icon.svg" alt="call" />
-            </div>
-            <a href="tel:+74951667733" className="header__telephone-number">
-              +7 (495) 166-77-33
-            </a>
+          <div className="header__search">
+            {' '}
+            <input placeholder="Поиск..." name="name" type="text" onChange={(e) => setSearch(e.target.value)} className="modal__input header__search-input" autoComplete="off" value={search} />
+            <button onClick={() => onSearch()} className="header__search-btn"></button>
           </div>
           <div onClick={() => setModalShowStatus(true)} className="header__btn intro__btn-red-hover" data-modal>
             Заказать звонок
