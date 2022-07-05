@@ -11,18 +11,14 @@ import { PrismaClient } from '@prisma/client';
 export default function Product({ goods }) {
   const [showMore, setShowMore] = useState(false);
   const [isModalShow, setModalShowStatus] = useState(false);
-  const [activeImage, setActiveImage] = useState(goods.images[0]);
+  const [activeImage, setActiveImage] = useState(goods?.images[0]);
 
   const router = useRouter();
   const orderProductClickHandler = () => {
     setModalShowStatus(true);
   };
 
-  console.log('PRODUCT FILTER ', goods);
-  if (goods.images && goods.images.length) {
-    //setActiveImage(goods.images[0])
-    console.log('ai', activeImage);
-  }
+
 
   const isFile = (value) => {
     const arr = value?.split('/') ? value.split('/') : [];
@@ -48,12 +44,17 @@ export default function Product({ goods }) {
                   <a className="breadcrumbs__item breadcrumbs__item-white">Главная</a>
                 </Link>
               </div>
+			  <div className="breadcrumbs__block-white">
+              <Link href="/catalog/categories/0">
+                <a className="breadcrumbs__item-white">Категории</a>
+              </Link>
+            </div>
               <div className="breadcrumbs__block-white">
                 <a style={{ cursor: 'pointer' }} onClick={router.back} className="breadcrumbs__item breadcrumbs__item-white">
                   Назад
                 </a>
               </div>
-              <div className="breadcrumbs__block">
+              <div className="breadcrumbs__block-white">
                 <span className="breadcrumbs__item">{item.article}</span>
               </div>
             </div>
@@ -62,11 +63,17 @@ export default function Product({ goods }) {
                 {activeImage ? (
                   <div className="product-card__slider">
                     <div className="product-card__slider-item">
-                      <Image width="400px" height="355px" src={activeImage?.image ? 'https://trade-group.su/' + activeImage?.image : '/no-image.png'} alt={item.name} />
+                      <Image width="400px" height="355px" src={activeImage?.image ?  activeImage?.image : '/no-image.png'} alt={item.name} />
                     </div>
                   </div>
                 ) : (
-                  <></>
+                  <> 
+				  <div className="product-card__slider">
+                    <div className="product-card__slider-item">
+                      <Image width="400px" height="355px" src='/no-image.png' alt={item.name} />
+                    </div>
+                  </div>
+				  </>
                 )}
                 <div>
                   {item.images && item.images.length ? (
@@ -75,7 +82,7 @@ export default function Product({ goods }) {
                       /*  className={image.id === activeImage.id ? "product-cards__additional-active" : "product-cards__additional"} */
                       return (
                         <div style={{ float: 'left' }} className="product-cards__additional_photo" key={image.id} onClick={() => changeActivePhoto(image)}>
-                          <Image src={image?.image ? 'https://trade-group.su/' + image?.image : '/no-image.png'} alt={item.name} width="100px" height="100px" />
+                          <Image src={image?.image ? image?.image : '/no-image.png'} alt={item.name} width="100px" height="100px" />
                         </div>
                       );
                     })
@@ -109,8 +116,8 @@ export default function Product({ goods }) {
                 <div className="product-card__tabs">
                   <div className="tabs">
                     <ul>
-                      <li className="product-card__tabs-item is-active">Характеристики</li>
-                      <li className="product-card__tabs-item">Дополнительная информация</li>
+                      <li className="product-card__tabs-item is-active">Характеристики</li> 
+                      { /* <li className="product-card__tabs-item">Дополнительная информация</li> */ }
                     </ul>
                   </div>
                   <div className="product-card__tabs-catalog characteristic">
@@ -142,7 +149,9 @@ export default function Product({ goods }) {
                       {showMore ? 'Спрятать' : 'Показать еще'}
                     </a>
                   </div>
-                  <div className="product-card__tabs-catalog addinfo hide">
+				  
+				  {
+                 /*  <div className="product-card__tabs-catalog addinfo hide">
                     <div className="product-card__tabs-catalog-item">
                       <div className="product-card__tabs-catalog-item-addinfo">
                         <span>Lorem ipsum dolor sit amet consectetur</span> adipisicing elit. Quasi quos id tempora quibusdam voluptatibus veritatis alias possimus expedita quia repudiandae voluptate dolorem tempore, atque sequi ducimus sint exercitationem ullam assumenda! Nisi eius aliquam,
@@ -156,7 +165,9 @@ export default function Product({ goods }) {
                         modi commodi eum quisquam architecto tempore debitis recusandae maxime neque fuga impedit?
                       </div>
                     </div>
-                  </div>
+                  </div> */
+				  
+				  }
                 </div>
                 <button onClick={orderProductClickHandler} className="product-card__pay-btn">
                   Купить
@@ -219,19 +230,20 @@ g(data)
       },
     },
   });
-  //console.log('data' , data.shop_product_properties)
-  data.src = data.shop_product_images[0].image;
-  data.images = data.shop_product_images;
-  if (data.price == 0) data.price = 'На заказ';
-
-  let props = [];
-  for (var key in data.shop_product_properties) {
-    let property = data.shop_product_properties[key].property;
-    props.push({ name: property.name, value: data.shop_product_properties[key].value });
-  }
-  data.properties = props;
+ 
 
   try {
+	  //console.log('data' , data.shop_product_properties)
+	  // data.src = data.shop_product_images[0].image;
+	  data.images = data.shop_product_images;
+	  if (data.price == 0) data.price = 'На заказ';
+
+	  let props = [];
+	  for (var key in data.shop_product_properties) {
+		let property = data.shop_product_properties[key].property;
+		props.push({ name: property.name, value: data.shop_product_properties[key].value });
+	  }
+	  data.properties = props;
     /* 	
         if(data===null)
 			data = await prisma.shop_product.findFirst({

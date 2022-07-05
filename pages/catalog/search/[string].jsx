@@ -107,11 +107,7 @@ export default function Search({ goods }) {
         </div>
       </div>
 
-      <div className="cat-filter">
-        <div className="container">
-          <div className="cat-filter__content">filters</div>
-        </div>
-      </div>
+      
 
       <div className="catalog" onScroll={(event) => onScrollList(event)}>
         <div className="container">
@@ -122,7 +118,7 @@ export default function Search({ goods }) {
                 return (
                   <div key={index} className="catalog__item">
                     <div className="catalog__item-img">
-                      <Image width="384px" height="256px" src={element?.shop_product_images?.[0].image ? 'https://trade-group.su/' + element?.shop_product_images?.[0].image : '/no-image.png'} alt="" />
+                      <Image width="384px" height="256px" src={element?.shop_product_images?.[0]?.image ? 'https://trade-group.su/' + element?.shop_product_images?.[0]?.image : '/no-image.png'} alt="" />
                     </div>
                     <div style={{ visibility: 'hidden' }} className="catalog__item-favorite-btn">
                       <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="gray">
@@ -188,6 +184,11 @@ export async function getServerSideProps(context) {
         },
         {
           name: {
+            contains: string,
+          },
+        },   
+		{
+          slug: {
             contains: string,
           },
         },

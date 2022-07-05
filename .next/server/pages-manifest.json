@@ -2,7 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/catalog/categories/[id]": "pages/catalog/categories/[id].js",
-  "/catalog/search/[string]": "pages/catalog/search/[string].js",
-  "/catalog/[slug]": "pages/catalog/[slug].js"
+  "/api/stavki": "pages/api/stavki.js"
 }

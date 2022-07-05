@@ -35,6 +35,7 @@ model news {
 model stavki {
   id             Int      @id @default(autoincrement())
   name_home      String?  @db.VarChar(255)
+  game_type      String?  @db.VarChar(255)
   name_away      String?  @db.VarChar(255)
   odd_name       String?  @db.VarChar(255)
   odd_value      Decimal? @db.Decimal(10, 2)
@@ -52,7 +53,7 @@ model collection_category_ref {
   category_id   Int?
   collection    collection @relation(fields: [collection_id], references: [id])
 
-  //@@unique([collection_id, category_id], map: "ux_collection_collection_id_category_id")
+  @@unique([collection_id, category_id], map: "ux_collection_collection_id_category_id")
 }
 
 model collection_product_ref {
@@ -62,7 +63,7 @@ model collection_product_ref {
   collection    collection @relation(fields: [collection_id], references: [id])
   product    shop_product @relation(fields: [product_id], references: [id])
 
-  //@@unique([collection_id, product_id], map: "ux_collection_collection_id_product_id")
+  @@unique([collection_id, product_id], map: "ux_collection_collection_id_product_id")
 }
 
 model migration {
@@ -254,7 +255,7 @@ model shop_product_categories {
   category_id Int
   product     shop_product @relation(fields: [product_id], references: [id])
 
-  //@@unique([product_id, category_id], map: "ux-shop_product_categories-product_id-category_id")
+  @@unique([product_id, category_id], map: "ux-shop_product_categories-product_id-category_id")
 }
 
 model shop_product_images {
@@ -285,7 +286,7 @@ model shop_product_properties {
   shop_product shop_product  @relation(fields: [product_id], references: [id])
   property     shop_property? @relation(fields: [property_id], references: [id])
 
-  //@@unique([property_id, product_id], map: "ux-shop_product_properties-property_id-product_id")
+  @@unique([property_id, product_id], map: "ux-shop_product_properties-property_id-product_id")
   //@@index([product_id], map: "shop_product_properties_product_id_fkey")
 }
 
