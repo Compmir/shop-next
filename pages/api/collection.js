@@ -28,8 +28,9 @@ export default async function handler(req, res) {
 			    console.log(" collection_category_ref ",data.collection_category_ref)
 
 		pr=await prisma.collection_category_ref.createMany({
-				data: data.collection_category_ref
-				
+				data: data.collection_category_ref,
+												skipDuplicates: true, // Skip 'Bobo'
+
 		})
 			    console.log("create category ref   ",pr)
 
@@ -42,7 +43,9 @@ export default async function handler(req, res) {
 			    console.log(" collection_product_ref",data.collection_product_ref)
 
 		pr=await prisma.collection_product_ref.createMany({
-				data: data.collection_product_ref
+				data: data.collection_product_ref,
+												skipDuplicates: true, // Skip 'Bobo'
+
 				
 		})
 			    console.log("create collection_product_ref",pr)

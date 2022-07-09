@@ -286,7 +286,7 @@ model shop_product_properties {
   shop_product shop_product  @relation(fields: [product_id], references: [id])
   property     shop_property? @relation(fields: [property_id], references: [id])
 
-  @@unique([property_id, product_id], map: "ux-shop_product_properties-property_id-product_id")
+  //@@unique([property_id, product_id], map: "ux-shop_product_properties-property_id-product_id")
   //@@index([product_id], map: "shop_product_properties_product_id_fkey")
 }
 

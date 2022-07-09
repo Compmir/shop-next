@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { PrismaClient } from '@prisma/client';
+  const prisma = new PrismaClient()
 
 import { Lizing } from '../components/Sections/Lizing';
 import { News } from '../components/Sections/News';
@@ -13,7 +15,8 @@ import { gsap } from 'gsap/dist/gsap';
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-export default function Home() {
+export default function Home({news}) {
+	
   const [isModalShow, setModalShowStatus] = useState(false);
   const introTitle = useRef();
   const mapImg = useRef();
@@ -391,9 +394,12 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      <News newsBlock={newsBlock} newsLeftArr={newsLeftArr} newsRightArr={newsRightArr} newsItems={newsItems} newsBtn={newsBtn} newsTitle={newsTitle} />
-
+	  {
+/*       // <News newsBlock={newsBlock} newsLeftArr={newsLeftArr} newsRightArr={newsRightArr} newsItems={newsItems} newsBtn={newsBtn} newsTitle={newsTitle} />
+ */
+ 
+	  }
+	  
       <div className="map">
         <div className="container">
           <div className="map__wrapper">
@@ -408,4 +414,20 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+
+export async function getStaticProps() {
+  const posts = await prisma.news.findMany({
+      orderBy: {
+            id: 'desc',
+          },
+		  take: 4
+  })
+	const data=JSON.parse(JSON.stringify(posts)) // <== here is a solution
+
+   console.log(posts)
+  return {
+    props : { data }
+  }
 }

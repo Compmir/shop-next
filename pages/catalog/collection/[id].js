@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { OrderCallModal } from '../../../components/Modals/OrderCallModal';
 import { PrismaClient } from '@prisma/client';
+  const prisma = new PrismaClient();
 
 export default function Collection({ goods, title }) {
   const router = useRouter();
@@ -98,10 +99,12 @@ export default function Collection({ goods, title }) {
 }
 
 export async function getServerSideProps(context) {
-  const prisma = new PrismaClient();
+	  const { params, query } = context;
+	  console.log(params)
+	  
   const data = await prisma.collection_product_ref.findMany({
     where: {
-      collection_id: context.id,
+      collection_id: Number(params.id),
     },
     include: {
       collection: true, //!= null ? emailInput : undefined,
@@ -109,16 +112,17 @@ export async function getServerSideProps(context) {
   });
   let goods = [];
   let title = '';
+  
   for (var el in data) {
     title = data[el].collection.title;
     let product = await prisma.shop_product.findFirst({
       where: {
         id: Number(data[el].product_id),
       },
-      orderBy: {
-        is_stock: 'desc',
-        order: 'asc',
-      },
+      orderBy: [
+	      { is_stock: 'desc'},
+		  {  order: 'asc'},
+	  ],
       include: {
         shop_product_images: {
           orderBy: {
@@ -136,17 +140,19 @@ export async function getServerSideProps(context) {
       let props = [];
       for (var key in product.shop_product_properties) {
         let property = product.shop_product_properties[key].property;
-        console.log(property.is_filtered);
+        // console.log(property.is_filtered);
 
         if (property.is_filtered == true) props.push({ name: property.name, value: product.shop_product_properties[key].value });
       }
       //console.log('pid',props)
-
-      goods.push({
+	  let img='/no-image.png'
+      if (product.shop_product_images[0])  img=product.shop_product_images[0].image
+      
+	  goods.push({
         name: product.name,
         id: product.id,
         slug: product.slug,
-        image: product.shop_product_images[0].image,
+        image: img,
         properties: props,
       });
     }

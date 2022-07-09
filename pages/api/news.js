@@ -3,7 +3,9 @@ const prisma = new PrismaClient()
 
 export default async function handler(req, res) {
 	let data=JSON.parse(req.body.data)
+	let date=new Date(data.data.date)
 	let dataId=Number(data.data.id)
+	data.data.date=date
 	delete data.data.id
 	
 	if (req.headers.token=="f7059062-47ca-4e8f-b0d5-34fdd605eddd")  {

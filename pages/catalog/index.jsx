@@ -65,8 +65,7 @@ export default function Catalog({ goods, pageCount, filtersList, links }) {
                 <ul>
                   {links?.map((link) => {
                     // const quickLink = link["url"]?.split("?")[1]
-                    const ql = '/catalog/collection/' + link.id;
-                    console.log(ql, link.collection.title);
+                    const ql = '/catalog/collection/' + link.collection_id;
 
                     return (
                       <li key={link.id}>
@@ -158,7 +157,7 @@ export async function getServerSideProps(context) {
       collection: true,
     },
   });
-  //console.log(links2)
+  console.log(links2,category)
 
   //try {
 
