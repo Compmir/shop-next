@@ -7,6 +7,7 @@ import { SearchVehicleForm } from '../../components/Forms/SearchVehicleForm';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { PrismaClient } from '@prisma/client';
+  const prisma = new PrismaClient();
 
 export default function Product({ goods }) {
   const [showMore, setShowMore] = useState(false);
@@ -198,8 +199,8 @@ export default function Product({ goods }) {
 
 export async function getServerSideProps(context) {
   const { params } = context;
-  const link = `https://trade-group.su/apicatalog?slug=${params.slug}`;
-  console.log(link);
+  // const link = `https://trade-group.su/apicatalog?slug=${params.slug}`;
+  // console.log(link);
 
   //
 
@@ -212,7 +213,6 @@ export async function getServerSideProps(context) {
 g(data)
          */
 
-  const prisma = new PrismaClient();
   let data = await prisma.shop_product.findFirst({
     where: {
       slug: params.slug,

@@ -6,6 +6,7 @@ import { CatalogFilters } from '../../components/CatalogFilter/CatalogFilters';
 import { CatalogPaginate } from '../../components/CatalogPaginate';
 import { OrderCallModal } from '../../components/Modals/OrderCallModal';
 import { PrismaClient } from '@prisma/client';
+  const prisma = new PrismaClient();
 
 export default function Catalog({ goods, pageCount, filtersList, links }) {
   const router = useRouter();
@@ -148,7 +149,6 @@ export async function getServerSideProps(context) {
   const { query } = context;
   const category = query['categories'];
 
-  const prisma = new PrismaClient();
   const links2 = await prisma.collection_category_ref.findMany({
     where: {
       category_id: Number(category),

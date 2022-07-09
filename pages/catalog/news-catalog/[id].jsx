@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { PrismaClient } from '@prisma/client';
+  const prisma = new PrismaClient();
 
 export default function NewsCatalogItem({ newsItem }) {
   if (newsItem) {
@@ -53,7 +54,6 @@ export default function NewsCatalogItem({ newsItem }) {
 export const getServerSideProps = async (context) => {
   const { params } = context;
   // const newsItemRequest = (await axios.get(`https://trade-group.su/apinews?id=${params.id}`)).data
-  const prisma = new PrismaClient();
   let newsItemRequest = await prisma.news.findFirst({
     where: {
       id: Number(params.id),

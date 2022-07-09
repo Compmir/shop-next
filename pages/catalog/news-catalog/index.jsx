@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { PrismaClient } from '@prisma/client';
+  const prisma = new PrismaClient();
 
 const NewsCatalog = ({ news }) => {
   return (
@@ -86,7 +87,6 @@ export default NewsCatalog;
 export const getServerSideProps = async (context) => {
   //const newsResponse = (await axios.get("https://trade-group.su/apinews")).data
 
-  const prisma = new PrismaClient();
 
   /* 	const news  = await prisma.news.create({
 		data:{

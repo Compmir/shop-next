@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { PrismaClient } from '@prisma/client';
+  const prisma = new PrismaClient();
 
 export default function CategoriesList({ goods, id }) {
   const router = useRouter();
@@ -66,7 +67,6 @@ export const getServerSideProps = async (context) => {
   const id = parseInt(params['id']);
   const prevId = query['prevId'];
 
-  const prisma = new PrismaClient();
   let categoriesResponse = await prisma.shop_category.findMany({
     where: {
       parent_id: id,

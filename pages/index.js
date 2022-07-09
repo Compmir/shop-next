@@ -395,8 +395,8 @@ export default function Home({news}) {
         </div>
       </div>
 	  {
-/*       // <News newsBlock={newsBlock} newsLeftArr={newsLeftArr} newsRightArr={newsRightArr} newsItems={newsItems} newsBtn={newsBtn} newsTitle={newsTitle} />
- */
+      <News newsBlock={newsBlock} newsLeftArr={newsLeftArr} newsRightArr={newsRightArr} newsItems={newsItems} newsBtn={newsBtn} newsTitle={newsTitle} />
+
  
 	  }
 	  

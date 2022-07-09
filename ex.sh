@@ -1,1 +1,0 @@
-ts-node -T /root/ex/src/index.ts

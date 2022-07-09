@@ -7,6 +7,7 @@ import { CatalogPaginate } from '../../../components/CatalogPaginate';
 import { OrderCallModal } from '../../../components/Modals/OrderCallModal';
 import { PrismaClient } from '@prisma/client';
 import InfiniteScroll from 'react-infinite-scroller';
+  const prisma = new PrismaClient();
 
 export default function Search({ goods }) {
   const router = useRouter();
@@ -171,7 +172,6 @@ export async function getServerSideProps(context) {
   const { query } = context;
   const string = query.string;
 
-  const prisma = new PrismaClient();
   const links2 = [];
 
   let products = await prisma.shop_product.findMany({
