@@ -1,7 +1,8 @@
 import { Layout } from '../components/Sections/Layout';
 import AdminLayout  from '../components/Admin/Layout';
 import { useRouter } from 'next/router';
-
+import store from '../redux/store'
+import { Provider } from 'react-redux'
 import '../styles/scss/style.scss'
 
 import 'swiper/css';
@@ -18,9 +19,11 @@ function MyApp({ Component, pageProps }) {
     )
   }
   return (
+    <Provider store={store}>
        <Layout>
          <Component {...pageProps} />
        </Layout>
+    </Provider>
   );
   
 }

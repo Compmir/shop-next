@@ -43,6 +43,60 @@ model stavki {
   pinnacle_odd2  Decimal? @db.Decimal(10, 2)
   betonline_odd1 Decimal? @db.Decimal(10, 2)
   betonline_odd2 Decimal? @db.Decimal(10, 2)
+  betonline_name_home String? 
+  betonline_name_away String? 
+  pinnacle_name_home String? 
+  pinnacle_name_away String? 
+  user String? 
+  date           DateTime @default(now())
+
+}
+
+model stavkisettings {
+  id             Int      @id @default(autoincrement())
+  login      String  @db.VarChar(255)
+  password      String  @db.VarChar(255)
+  loginBo      String?  @db.VarChar(255)
+  passwordBo      String?  @db.VarChar(255)
+  loginPn      String?  @db.VarChar(255)
+  passwordPn       String?  @db.VarChar(255)
+  login365    String?  @db.VarChar(255)
+  password365  String?  @db.VarChar(255)
+  search  String?  @db.VarChar(255)
+  radio  String?  @db.VarChar(255)
+  checks  String?  @db.VarChar(255)
+  urlBo  String?  @db.VarChar(255)
+  urlPn  String?  @db.VarChar(255)
+  url365  String?  @db.VarChar(255)
+  course Int? 
+  initStavka Int? 
+  beginPercentage Decimal? 
+  maxPercentage Decimal? 
+  pauseCheck Int? 
+  pauseStakeBo Int? 
+  waitBo Int? 
+  maxStakeBo Decimal? 
+  date           DateTime @default(now())
+
+}
+
+
+model stavkisave {
+  id             Int      @id @default(autoincrement())
+  name_home      String?  @db.VarChar(255)
+  name_away      String?  @db.VarChar(255)
+  pinnacle_odd1  Decimal? @db.Decimal(10, 2)
+  pinnacle_odd2  Decimal? @db.Decimal(10, 2)
+  betonline_odd1 Decimal? @db.Decimal(10, 2)
+  betonline_odd2 Decimal? @db.Decimal(10, 2)
+  b365_1 Decimal? @db.Decimal(10, 2)
+  b365_2 Decimal? @db.Decimal(10, 2)
+  f1 Decimal? @db.Decimal(10, 2)
+  f2 Decimal? @db.Decimal(10, 2)
+  f3 Decimal? @db.Decimal(10, 2)
+  f4 Decimal? @db.Decimal(10, 2)
+  f5 Decimal? @db.Decimal(10, 2)
+  f6 Decimal? @db.Decimal(10, 2)
   date           DateTime @default(now())
 
 }
@@ -286,7 +340,7 @@ model shop_product_properties {
   shop_product shop_product  @relation(fields: [product_id], references: [id])
   property     shop_property? @relation(fields: [property_id], references: [id])
 
-  //@@unique([property_id, product_id], map: "ux-shop_product_properties-property_id-product_id")
+  @@unique([property_id, product_id], map: "ux-shop_product_properties-property_id-product_id")
   //@@index([product_id], map: "shop_product_properties_product_id_fkey")
 }
 

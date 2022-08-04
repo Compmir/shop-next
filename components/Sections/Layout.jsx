@@ -1,11 +1,13 @@
 import { Footer } from "./Footer"
 import { Header } from "./Header"
 import NextNProgress from "nextjs-progressbar";
-
+import Script from 'next/script'
 export const Layout = ({children}) => {
     return (
     <div>
-        <Header />
+        <Header>
+		
+        </Header>
         <main className="main">
             <NextNProgress
                 color="red"
@@ -14,9 +16,11 @@ export const Layout = ({children}) => {
                 height={3}
                 showOnShallow={true}
             />
+			
             {children}
         </main>
-        <Footer />
+        <Footer />			
+
         </div>
     )
 }

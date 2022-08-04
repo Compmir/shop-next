@@ -25,10 +25,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/catalog/categories/[id]": [
+    "/catalog": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/catalog/categories/[id].js"
+      "static/chunks/pages/catalog.js"
+    ],
+    "/catalog/collection/[id]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/catalog/collection/[id].js"
     ]
   },
   "ampFirstPages": []

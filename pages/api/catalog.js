@@ -13,7 +13,7 @@ export default async (req, res) => {
 		  }
 	})
 	//а потом создаем заново категории
-	const createManyCategories  = await prisma.shop_category.createMany({
+	let createManyCategories  = await prisma.shop_category.createMany({
 	   data: [
           { parent_id: 0, image: '/upload/images/category/palletnye-stellazi.jpg', order: 77, name: 'Паллетные стеллажи', slug: 'palletnye-stellazi',},
           { parent_id: 0, image: '/upload/images/category/benzinovye-pogruzchiki.jpg', order: 77, name: 'Бензиновые погрузчики1', slug: 'benzinovye-pogruzchiki',},
@@ -31,7 +31,7 @@ export default async (req, res) => {
 		  }
 	})
 	//а потом создаем заново 
-	const createManyCategories  = await prisma.shop_product.createMany({
+	 createManyCategories  = await prisma.shop_product.createMany({
 	   data: [
           { brand_id: 4,  arlicle: 'EP CPCD25T3', name: 'EP CPCD25T3', slug: 'ep-cpcd-2025-t3',description: '<p>Новый дизельный погрузчик EP Equipment&nbsp;грузоподъемностью 2.5 тонны - это маневренные, превосходящие по скоростным и габаритным характеристикам аналогичные модели погрузчиков, укомплектованы современными дизельными и бензиновыми двигателями японского производства.</p>', order: 6, is_stock: 1},
           // также все поля дальше других товаров для создания{}

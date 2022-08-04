@@ -12,6 +12,8 @@ export const OrderCallModal = ({isOpen, closeModal, productName}) => {
 
     const submitHandler = async (data) => {
         if (data["agreement"]) {
+			
+			roistatGoal.reach({leadName: 'Новая сделка', text: 'Форма заказа', price: '300'})
             const response = await axios.get(`https://trade-group.su/mail?name=${data["name"]}&tel=${data["phone"]}&message=${data["message"]}`)
             closeModal(true)
             return reset()

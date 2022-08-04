@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Script from 'next/script'
 
 export const Footer = () => {
     return (
@@ -63,6 +64,9 @@ export const Footer = () => {
                 </div>
             </div>
         </div>
+		
+		
+		<Script src="/js/roistat.js"  strategy="lazyOnload" />
     </footer>
     )
 }
